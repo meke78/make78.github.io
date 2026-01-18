@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galeri Imut 💗</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Segoe UI', 'Comic Sans MS', sans-serif;
+      background: linear-gradient(135deg, #ffb6d5, #ffe6f2);
+      overflow-x: hidden;
+    }
+    header {
+      padding: 28px 16px 10px;
+      text-align: center;
+      color: #ff3b8d;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    header p {
+      margin: 6px 0 0;
+      color: #ff6aa8;
+    }
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 22px;
+      padding: 12px;
+      box-shadow: 0 12px 28px rgba(255,95,162,.25);
+      transition: transform .25s ease, box-shadow .25s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 18px 36px rgba(255,95,162,.35);
+    }
+    .card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+    .caption {
+      margin-top: 10px;
+      text-align: center;
+      color: #ff5fa2;
+      font-weight: 600;
+    }
+    .footer {
+      text-align: center;
+      padding: 18px;
+      color: #ff6aa8;
+      font-size: .95rem;
+    }/* floating hearts */
+.heart {
+  position: fixed;
+  bottom: -24px;
+  font-size: 22px;
+  animation: floatUp 6s linear infinite;
+  opacity: .85;
+  pointer-events: none;
+}
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(.8); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(-120vh) scale(1.4); opacity: 0; }
+}
+
+/* modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,182,213,.75);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.modal.active { display: flex; }
+.modal-content {
+  background: #fff;
+  border-radius: 24px;
+  padding: 14px;
+  max-width: 92vw;
+  max-height: 92vh;
+  box-shadow: 0 20px 40px rgba(255,95,162,.35);
+  animation: pop .25s ease;
+}
+@keyframes pop { from{transform:scale(.9);opacity:0} to{transform:scale(1);opacity:1} }
+.modal-content img {
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 16px;
+  display: block;
+  margin: 0 auto;
+}
+.modal-caption {
+  margin-top: 10px;
+  text-align: center;
+  color: #ff5fa2;
+  font-weight: 700;
+}
+.close {
+  margin-top: 10px;
+  display: block;
+  background: linear-gradient(135deg, #ff5fa2, #ff85c2);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 22px;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💗 Galeri Imut Paling Gemes 💗</h1>
+    <p>khusus buat kamu yang cute, imut, dan bikin senyum 😚</p>
+  </header>  <div class="container">
+    <div class="gallery">
+      <!-- card 1 -->
+      <div class="card" onclick="openModal('https://files.catbox.moe/mctccb.jpg','imutnya kebangetan 🥺💗')">
+        <img src="https://files.catbox.moe/mctccb.jpg" alt="imut" />
+        <div class="caption">imutnya kebangetan 🥺💗</div>
+      </div><!-- duplicate cards if you add more photos -->
+  <div class="card" onclick="openModal('https://files.catbox.moe/mctccb.jpg','cute overload 😭💕')">
+    <img src="https://files.catbox.moe/mctccb.jpg" alt="cute" />
+    <div class="caption">cute overload 😭💕</div>
+  </div>
+
+  <div class="card" onclick="openModal('https://files.catbox.moe/mctccb.jpg','gemes nggak ada obat ✨')">
+    <img src="https://files.catbox.moe/mctccb.jpg" alt="gemes" />
+    <div class="caption">gemes nggak ada obat ✨</div>
+  </div>
+</div>
+
+  </div>  <div class="footer">dibuat khusus buat kamu yang paling manis 🫶💗</div>  <!-- modal -->  <div class="modal" id="modal" onclick="closeModal(event)">
+    <div class="modal-content">
+      <img id="modalImg" src="" alt="preview" />
+      <div class="modal-caption" id="modalCap"></div>
+      <button class="close" onclick="closeModal()">tutup 🤍</button>
+    </div>
+  </div>  <script>
+    // floating hearts
+    const hearts = ['💗','💕','💖','💘','🌸'];
+    setInterval(() => {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+      h.style.left = Math.random()*100 + 'vw';
+      h.style.animationDuration = (4 + Math.random()*4) + 's';
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(), 7000);
+    }, 500);
+
+    // modal handlers
+    function openModal(src, cap){
+      document.getElementById('modalImg').src = src;
+      document.getElementById('modalCap').textContent = cap;
+      document.getElementById('modal').classList.add('active');
+    }
+    function closeModal(e){
+      if(!e || e.target.id === 'modal'){
+        document.getElementById('modal').classList.remove('active');
+      }
+    }
+  </script></body>
+</html>
